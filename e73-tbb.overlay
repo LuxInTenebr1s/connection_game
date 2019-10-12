@@ -1,0 +1,49 @@
+/ {
+    leds {
+        led1_red: led_1 {
+            gpios = <&gpio0 17 GPIO_INT_ACTIVE_LOW>;
+            label = "Red LED 1";
+        };
+        led2_red: led_2{
+            gpios = <&gpio0 18 GPIO_INT_ACTIVE_LOW>;
+            label = "Red LED 2";
+        };
+
+         /delete-node/ led_0;
+   };
+
+    buttons {
+        button1: button1 {
+            gpios = <&gpio0 14 GPIO_PUD_PULL_UP>;
+            label = "Push button switch 1";
+        };
+
+        button2: button2 {
+            gpios = <&gpio0 13 GPIO_PUD_PULL_UP>;
+            label = "Push button switch 2";
+        };
+    };
+
+    aliases {
+        /delete-property/ led2;
+        /delete-property/ led0-green;
+        /delete-property/ led2-blue;
+
+        sw0 = &button1;
+        sw1 = &button2;
+        led0 = &led1_red;
+        led1 = &led2_red;
+        led0-red = &led1_red;
+        led1-red = &led2_red;
+    };
+};
+
+&uart0 {
+    status = "okay";
+    compatible = "nordic,nrf-uart";
+    current-speed = <115200>;
+    tx-pin = <6>;
+    rx-pin = <8>;
+    rts-pin = <7>;
+    cts-pin = <5>;
+};
